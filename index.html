@@ -383,6 +383,27 @@
   <div id="news-status" class="meta">لم يتم ربط مصدر أخبار حتى الآن.</div>
   <div id="news-list" class="grid"></div>
 </section>
+  <script>
+const newsStatus = document.getElementById("news-status");
+
+fetch("https://www.presidency.eg/AR/rss/")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("تعذر الوصول للمصدر");
+    }
+    return response.text();
+  })
+  .then(data => {
+    newsStatus.textContent =
+      "تم الوصول إلى صفحة المصدر. جارٍ تجهيز قراءة الأخبار.";
+    console.log("تم استلام بيانات المصدر:", data);
+  })
+  .catch(error => {
+    newsStatus.textContent =
+      "تعذّر الاتصال المباشر بالمصدر. سنحتاج إلى طريقة ربط بديلة.";
+    console.error("خطأ الاتصال:", error);
+  });
+</script>
 </body>
 </html>
 </body>
